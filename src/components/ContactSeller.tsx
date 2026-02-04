@@ -18,8 +18,8 @@ export function ContactSeller({
   sellerPhone,
   sellerEmail,
 }: ContactSellerProps) {
-  const hasPhone = sellerPhone?.replace(/\D/g, '').length >= 8;
-  const hasEmail = !!sellerEmail?.trim();
+  const hasPhone = (sellerPhone?.replace(/\D/g, '') ?? '').length >= 8;
+  const hasEmail = !!(sellerEmail?.trim());
 
   if (!hasPhone && !hasEmail) {
     return null;
@@ -35,7 +35,7 @@ export function ContactSeller({
           asChild
         >
           <a
-            href={whatsappUrl(sellerPhone!, WHATSAPP_MESSAGE(vehicleTitle))}
+            href={whatsappUrl(sellerPhone ?? '', WHATSAPP_MESSAGE(vehicleTitle))}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -46,7 +46,7 @@ export function ContactSeller({
       )}
       {hasEmail && (
         <Button variant="outline" size="lg" asChild>
-          <a href={`mailto:${sellerEmail}`}>
+          <a href={`mailto:${sellerEmail ?? ''}`}>
             <Mail className="mr-2 h-5 w-5" />
             Enviar email al vendedor
           </a>
