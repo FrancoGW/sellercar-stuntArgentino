@@ -27,7 +27,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Testing
+# Testingasdsad
 coverage/
 .nyc_output
 
