@@ -30,6 +30,14 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    async signIn() {
+      return true;
+    },
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith('/')) return `${baseUrl}${url}`;
+      if (new URL(url).origin === baseUrl) return url;
+      return baseUrl + '/admin/dashboard';
+    },
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
@@ -50,4 +58,5 @@ export const authOptions: NextAuthOptions = {
   },
   session: { strategy: 'jwt', maxAge: 30 * 24 * 60 * 60 },
   secret: process.env.NEXTAUTH_SECRET,
+  useSecureCookies: process.env.NODE_ENV === 'production',
 };

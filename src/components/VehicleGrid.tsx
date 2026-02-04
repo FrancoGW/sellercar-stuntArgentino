@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { motion } from 'motion/react';
 import { VehicleCard } from '@/components/VehicleCard';
 import { Button } from '@/components/ui/button';
 
@@ -79,13 +80,26 @@ export function VehicleGrid() {
     );
   }
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.06 },
+    },
+  };
+
   return (
     <div className="space-y-6">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <motion.div
+        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        variants={container}
+        initial="hidden"
+        animate="show"
+      >
         {data.items.map((v) => (
           <VehicleCard key={v._id} vehicle={v} />
         ))}
-      </div>
+      </motion.div>
 
       {/* Paginación eficiente */}
       {data.totalPages > 1 && (

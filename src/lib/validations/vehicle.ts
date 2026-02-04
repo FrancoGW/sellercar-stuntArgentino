@@ -31,7 +31,7 @@ export type VehicleInput = z.infer<typeof vehicleSchema>;
 
 export const vehicleQuerySchema = z.object({
   page: z.coerce.number().min(1).default(1),
-  limit: z.coerce.number().min(1).max(50).default(12),
+  limit: z.coerce.number().min(1).max(100).default(10),
   brand: z.string().optional(),
   minPrice: z.coerce.number().min(0).optional(),
   maxPrice: z.coerce.number().min(0).optional(),

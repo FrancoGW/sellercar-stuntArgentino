@@ -13,6 +13,9 @@ dist/
 .env
 .env.*
 !.env.example
+.env copy.local
+*env*copy*
+*.local
 
 # Debug
 npm-debug.log*

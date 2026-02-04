@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
 import { AnalyticsTracker } from '@/components/AnalyticsTracker';
+import { Toaster } from 'sonner';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
         <Providers>
           <AnalyticsTracker />
           {children}
+          <Toaster richColors position="top-center" />
         </Providers>
       </body>
     </html>

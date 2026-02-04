@@ -4,15 +4,16 @@
 
 @layer base {
   :root {
-    /* Paleta profesional y moderna */
-    --background: 0 0% 98%;
+    /* Paleta profesional: Navy, Azul, Verde, Amarillo, Rojo */
+    /* --primary: #0F172A (Navy), --secondary: #3B82F6, --accent/success: #10B981, --warning: #F59E0B, --danger: #EF4444 */
+    --background: 210 40% 98%;
     --foreground: 222 47% 11%;
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
     --primary: 222 47% 11%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 217 91% 60%;
+    --secondary-foreground: 0 0% 100%;
     --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
     --accent: 210 40% 96%;

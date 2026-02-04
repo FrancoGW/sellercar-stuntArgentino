@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { VehicleDetailClient } from '@/components/VehicleDetailClient';
+import { VehicleDetailMotion } from '@/components/VehicleDetailMotion';
 
 async function getVehicle(id: string) {
   const base = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
@@ -34,7 +35,7 @@ export default async function VehiclePage({
       </header>
 
       <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="grid gap-8 lg:grid-cols-2">
+        <VehicleDetailMotion className="grid gap-8 lg:grid-cols-2">
           <div className="space-y-4">
             <div className="relative aspect-video rounded-lg overflow-hidden bg-muted">
               {img ? (
@@ -103,7 +104,7 @@ export default async function VehiclePage({
             </ul>
             <VehicleDetailClient vehicleId={vehicle._id} vehicleTitle={vehicle.title} />
           </div>
-        </div>
+        </VehicleDetailMotion>
       </main>
     </div>
   );

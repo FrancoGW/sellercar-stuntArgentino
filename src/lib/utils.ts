@@ -33,6 +33,18 @@ export function getExpirationStatus(
   const now = new Date();
   const daysUntil = Math.ceil((exp.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
   if (daysUntil < 0) return 'error';
-  if (daysUntil <= 30) return 'warning';
+  if (daysUntil <= 7) return 'warning';
   return 'ok';
+}
+
+/** Días restantes hasta la fecha (negativo si ya venció). */
+export function getDaysRemaining(expiresAt: Date | string | null): number | null {
+  if (!expiresAt) return null;
+  const exp = new Date(expiresAt);
+  const now = new Date();
+  return Math.ceil((exp.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+}
+
+export function formatNumber(n: number): string {
+  return new Intl.NumberFormat('es-AR').format(n);
 }

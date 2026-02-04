@@ -1,8 +1,9 @@
 /**
  * Script para crear usuario admin inicial.
- * Ejecutar con: npx ts-node --compiler-options '{"module":"CommonJS"}' scripts/seed-admin.ts
- * Requiere MONGODB_URI y ADMIN_EMAIL, ADMIN_PASSWORD en env.
+ * Ejecutar con: ADMIN_EMAIL=... ADMIN_PASSWORD=... npx ts-node --compiler-options '{"module":"CommonJS"}' scripts/seed-admin.ts
+ * Carga .env para MONGODB_URI; ADMIN_EMAIL y ADMIN_PASSWORD pueden pasarse por línea de comandos.
  */
+import 'dotenv/config';
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 

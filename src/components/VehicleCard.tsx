@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from 'motion/react';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { formatPrice, getExpirationStatus } from '@/lib/utils';
@@ -45,8 +46,21 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
   const vtvStatus = getExpirationStatus(vehicle.vtvExpiresAt ?? null);
   const patentStatus = getExpirationStatus(vehicle.patentExpiresAt ?? null);
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 16 },
+    show: { opacity: 1, y: 0 },
+  };
+
   return (
-    <Card className="overflow-hidden flex flex-col h-full">
+    <motion.div
+      variants={cardVariants}
+      initial="hidden"
+      animate="show"
+      transition={{ duration: 0.35, ease: 'easeOut' }}
+      whileHover={{ y: -4 }}
+      className="h-full"
+    >
+      <Card className="overflow-hidden flex flex-col h-full">
       <Link href={`/vehiculos/${vehicle._id}`} className="block">
         <div className="relative aspect-[4/3] bg-muted">
           {img ? (
@@ -96,5 +110,6 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
         </Button>
       </CardFooter>
     </Card>
+    </motion.div>
   );
 }
