@@ -3,10 +3,22 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { VehicleDetailClient } from '@/components/VehicleDetailClient';
 import { VehicleDetailMotion } from '@/components/VehicleDetailMotion';
+import { ContactSeller } from '@/components/ContactSeller';
+
+function getApiBase(): string {
+  // En desarrollo siempre usar localhost para que "Ver detalle" use la API local
+  if (process.env.NODE_ENV === 'development') {
+    return 'http://localhost:3000';
+  }
+  const base = process.env.NEXT_PUBLIC_APP_URL || '';
+  if (!base) return 'http://localhost:3000';
+  return base.startsWith('http') ? base : `https://${base}`;
+}
 
 async function getVehicle(id: string) {
-  const base = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-  const res = await fetch(`${base}/api/vehicles/${id}`, {
+  const base = getApiBase();
+  const url = `${base.replace(/\/$/, '')}/api/vehicles/${id}`;
+  const res = await fetch(url, {
     next: { revalidate: 60 },
   });
   if (!res.ok) return null;
@@ -102,7 +114,14 @@ export default async function VehiclePage({
                 </li>
               )}
             </ul>
-            <VehicleDetailClient vehicleId={vehicle._id} vehicleTitle={vehicle.title} />
+            <ContactSeller
+              vehicleTitle={vehicle.title}
+              sellerPhone={vehicle.sellerPhone}
+              sellerEmail={vehicle.sellerEmail}
+            />
+            <div className="mt-4">
+              <VehicleDetailClient vehicleId={vehicle._id} vehicleTitle={vehicle.title} />
+            </div>
           </div>
         </VehicleDetailMotion>
       </main>

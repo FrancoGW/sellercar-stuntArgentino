@@ -48,3 +48,15 @@ export function getDaysRemaining(expiresAt: Date | string | null): number | null
 export function formatNumber(n: number): string {
   return new Intl.NumberFormat('es-AR').format(n);
 }
+
+/**
+ * Arma la URL de WhatsApp para Argentina.
+ * Acepta número con o sin 54, con espacios/guiones; devuelve solo dígitos para wa.me.
+ */
+export function whatsappUrl(phone: string, text?: string): string {
+  const digits = phone.replace(/\D/g, '');
+  const withCountry = digits.startsWith('54') ? digits : `54${digits}`;
+  const base = `https://wa.me/${withCountry}`;
+  if (!text?.trim()) return base;
+  return `${base}?text=${encodeURIComponent(text.trim())}`;
+}

@@ -44,6 +44,8 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
           published: (vehicle.published as boolean) ?? false,
           vtvExpiresAt: (vehicle.vtvExpiresAt as string)?.slice(0, 10) ?? '',
           patentExpiresAt: (vehicle.patentExpiresAt as string)?.slice(0, 10) ?? '',
+          sellerPhone: (vehicle.sellerPhone as string) ?? '',
+          sellerEmail: (vehicle.sellerEmail as string) ?? '',
         }
       : {
           currency: 'ARS',
@@ -52,6 +54,8 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
           published: false,
           vtvExpiresAt: '',
           patentExpiresAt: '',
+          sellerPhone: '',
+          sellerEmail: '',
         },
   });
 
@@ -132,6 +136,29 @@ export function VehicleForm({ vehicle }: VehicleFormProps) {
         <div className="space-y-2">
           <Label>Transmisión</Label>
           <Input {...register('transmission')} />
+        </div>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-2">
+          <Label>WhatsApp del vendedor</Label>
+          <Input
+            {...register('sellerPhone')}
+            placeholder="Ej: 11 1234-5678 o 54911 12345678"
+          />
+          <p className="text-xs text-muted-foreground">
+            Número del dueño. El contacto directo es con el vendedor.
+          </p>
+        </div>
+        <div className="space-y-2">
+          <Label>Email del vendedor</Label>
+          <Input
+            type="email"
+            {...register('sellerEmail')}
+            placeholder="email@ejemplo.com"
+          />
+          {errors.sellerEmail && (
+            <p className="text-sm text-destructive">{errors.sellerEmail.message}</p>
+          )}
         </div>
       </div>
       <div className="space-y-2">

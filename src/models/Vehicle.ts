@@ -18,6 +18,9 @@ export interface IVehicle {
   /** Vencimientos: fechas para estados verde/amarillo/rojo */
   vtvExpiresAt?: Date;
   patentExpiresAt?: Date;
+  /** Contacto del dueño/vendedor (StuntArgentino solo publica, el contacto es directo con el dueño) */
+  sellerPhone?: string;
+  sellerEmail?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -39,6 +42,8 @@ const VehicleSchema = new Schema<IVehicle>(
     published: { type: Boolean, default: false },
     vtvExpiresAt: Date,
     patentExpiresAt: Date,
+    sellerPhone: String,
+    sellerEmail: String,
   },
   { timestamps: true }
 );

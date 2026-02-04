@@ -25,6 +25,13 @@ export const vehicleSchema = z.object({
     .optional()
     .nullable()
     .transform((v) => (v ? new Date(v).toISOString() : null)),
+  sellerPhone: z.string().max(30).optional().nullable(),
+  sellerEmail: z
+    .string()
+    .max(120)
+    .optional()
+    .nullable()
+    .refine((v) => !v || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), 'Email inválido'),
 });
 
 export type VehicleInput = z.infer<typeof vehicleSchema>;

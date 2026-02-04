@@ -23,8 +23,8 @@ export function VehicleDetailClient({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="cta" size="lg">
-          Contactar por este vehículo
+        <Button variant="outline" size="lg">
+          Enviar mensaje por el sitio
         </Button>
       </DialogTrigger>
       <DialogContent>

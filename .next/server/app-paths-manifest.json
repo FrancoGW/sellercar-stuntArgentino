@@ -1,5 +1,14 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
+  "/vehiculos/[id]/page": "app/vehiculos/[id]/page.js",
   "/page": "app/page.js",
-  "/admin/login/page": "app/admin/login/page.js"
+  "/api/admin/vehicles/[id]/route": "app/api/admin/vehicles/[id]/route.js",
+  "/api/admin/vehicles/route": "app/api/admin/vehicles/route.js",
+  "/api/vehicles/route": "app/api/vehicles/route.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/api/analytics/route": "app/api/analytics/route.js",
+  "/api/vehicles/[id]/route": "app/api/vehicles/[id]/route.js",
+  "/admin/vehiculos/[id]/page": "app/admin/vehiculos/[id]/page.js",
+  "/admin/vehiculos/page": "app/admin/vehiculos/page.js",
+  "/admin/dashboard/page": "app/admin/dashboard/page.js"
 }
