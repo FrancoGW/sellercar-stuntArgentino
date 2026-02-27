@@ -1,13 +1,15 @@
-# Deploy en Vercel (configuración obligatoria)
+# Deploy del frontend en Vercel
 
-Este proyecto es **Vite + React** (sitio estático), no Next.js. Para que el deploy funcione en Vercel hay que usar esta carpeta como raíz del proyecto.
+Este proyecto es **Vite + React** (sitio estático). El backend se despliega por separado.
 
-## Pasos en el dashboard de Vercel
+## Si el proyecto de Vercel del frontend tiene raíz en el repo
 
-1. Entrá a tu proyecto → **Settings** → **General**.
-2. En **Root Directory** hacé clic en **Edit**.
-3. Escribí: **`frontend`** y guardá.
-4. En **Framework Preset** asegurate que diga **Vite** (no Next.js). Si dice otro, cambiá a **Vite** y guardá.
-5. Dejá el resto por defecto (Build Command: `npm run build`, Output: `dist`, Install: `npm ci`).
+Cuando el proyecto del **frontend** en Vercel tiene **Root Directory** en la raíz del repo (sin poner `frontend`), Vercel usa el archivo **`vercel.json` en la raíz del repo**. Ese archivo ya está configurado para construir solo el frontend (framework: Vite, output: `frontend/dist`) y no afecta al deploy del backend.
 
-Con eso Vercel usará este `vercel.json` y desplegará el build estático correctamente. Si la raíz del proyecto queda en el repo (fuera de `frontend`), Vercel detecta Next.js y falla con errores como "routes-manifest" o "No serverless pages were built".
+## Si preferís que la raíz del proyecto sea solo `frontend`
+
+1. En el **proyecto del frontend** en Vercel → **Settings** → **General**.
+2. **Root Directory** → **Edit** → **`frontend`** → **Save**.
+3. **Framework Preset** → **Vite**.
+
+En ese caso Vercel usará solo `frontend/vercel.json` (npm ci, npm run build, dist).
