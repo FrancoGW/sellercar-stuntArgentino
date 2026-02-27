@@ -8,6 +8,8 @@ import { VehicleRecommendations } from '@/components/VehicleRecommendations';
 import { Footer } from '@/components/Footer';
 import { SiteHeader } from '@/components/SiteHeader';
 
+// Comment
+
 export default function VehicleDetailPage() {
   const { id } = useParams<{ id: string }>();
   const [vehicle, setVehicle] = useState<Record<string, unknown> | null>(null);
