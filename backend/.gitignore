@@ -1,5 +1,7 @@
 node_modules/
 dist/
+api/index.js
+api/_nest/
 .env
 .env.*
 !.env.example

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "nest build && rm -rf api/_nest && cp -r dist api/_nest",
+    "build": "nest build && npx @vercel/ncc build api/entry.js -o api --target es2020 && rm -f api/index.ts",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:prod": "node dist/main",
