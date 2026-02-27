@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+    --primary: 45 98% 36%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 45 98% 36%;
+    --secondary-foreground: 48 89% 75%;
+    --muted: 220 9% 46%;
+    --muted-foreground: 220 9% 65%;
+    --accent: 45 98% 36%;
+    --accent-foreground: 48 89% 75%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 45 98% 36%;
+    --input: 220 13% 30%;
+    --ring: 45 98% 36%;
+    --radius: 0.75rem;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+    --status-ok: 142 76% 36%;
+    --status-warning: 38 92% 50%;
+    --status-error: 0 84% 60%;
+    --price-cta: 45 98% 36%;
+    --price-cta-foreground: 0 0% 4%;
+  }
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 98%;
+    --primary: 45 98% 36%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 45 98% 36%;
+    --secondary-foreground: 48 89% 75%;
+    --muted: 220 9% 25%;
+    --muted-foreground: 220 9% 65%;
+    --accent: 45 98% 36%;
+    --accent-foreground: 48 89% 75%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 45 98% 36%;
+    --input: 220 13% 20%;
+    --ring: 45 98% 36%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 98%;
+    --status-ok: 142 70% 45%;
+    --status-warning: 38 92% 50%;
+    --status-error: 0 72% 51%;
+    --price-cta: 45 98% 36%;
+    --price-cta-foreground: 0 0% 4%;
+  }
+}
+
+.stunt-bg-pattern {
+  background-color: #000;
+  background-image: url('/logo-stunt-final.png');
+  background-size: 200px 120px;
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+.stunt-bg-pattern::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  pointer-events: none;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
