@@ -1,7 +1,7 @@
 {
   "framework": null,
   "installCommand": "cd backend && npm ci && cd ../frontend && npm ci",
-  "buildCommand": "cd backend && npm run build && cd .. && npx @vercel/ncc build api/index.ts -o api --target es2020 && rm -f api/index.ts && cd frontend && npm run build",
+  "buildCommand": "cd backend && npm run build && npx tsc ../api/index.ts --outDir ../api --esModuleInterop --skipLibCheck --module commonjs --target ES2020 && cd .. && npx @vercel/ncc build api/index.js -o api --target es2020 && rm -f api/index.ts api/index.js.map && cd frontend && npm run build",
   "outputDirectory": "frontend/dist",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
