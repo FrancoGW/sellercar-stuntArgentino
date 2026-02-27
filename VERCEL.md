@@ -12,7 +12,8 @@ Todo (frontend + API) en un mismo dominio. Ideal para conectar el repo una sola 
 
 1. En [vercel.com](https://vercel.com) → **Add New** → **Project** → importá el repo.
 2. Dejá **Root Directory** en blanco (raíz del repo).
-3. Vercel usará el `vercel.json` de la raíz, que ya está configurado para:
+3. En **Settings → General** → **Framework Preset** elegí **Other** (no Next.js). El frontend es Vite, no Next.js; si Vercel detecta Next.js, el build falla.
+4. Vercel usará el `vercel.json` de la raíz, que ya está configurado para:
    - instalar y compilar backend y frontend,
    - servir el frontend desde `frontend/dist`,
    - exponer la API en `/api/*` mediante `api/index.ts`.
