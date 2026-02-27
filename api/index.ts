@@ -1,8 +1,8 @@
 /**
- * Punto de entrada serverless en la raíz del monorepo (deploy único en Vercel).
- * El build copia backend/dist a api/backend (no usamos "dist" porque está en .gitignore y Vercel no lo sube).
+ * Entrada para Vercel. Se empaqueta con `ncc` en el build para incluir todo el backend en un solo archivo.
+ * No cambiar el require: ncc lo usa para hacer el bundle desde backend/dist.
  */
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const { AppFactory } = require('./backend/app.factory');
+const { AppFactory } = require('../backend/dist/app.factory');
 
 module.exports = AppFactory.create().expressApp;
