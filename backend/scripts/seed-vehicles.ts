@@ -30,7 +30,7 @@ async function seedVehicles() {
   }
 
   try {
-    await mongoose.connect(uri, { dbName: 'StuntArgentinoCars' });
+    await mongoose.connect(uri, { dbName: process.env.MONGODB_DB_NAME || 'sellercar' });
     console.log('✅ Conectado a MongoDB');
 
     const vehiclesCollection = mongoose.connection.collection('vehicles');

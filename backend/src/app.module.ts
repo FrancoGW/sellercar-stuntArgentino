@@ -14,7 +14,7 @@ import { ConfigModule as SiteConfigModule } from './config/config.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.MONGODB_URI || '', {
-      dbName: 'StuntArgentinoCars',
+      dbName: process.env.MONGODB_DB_NAME || 'sellercar',
     }),
     SendgridModule,
     AuthModule,
