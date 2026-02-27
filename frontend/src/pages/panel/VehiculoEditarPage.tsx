@@ -26,7 +26,7 @@ export default function VehiculoEditarPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-white mb-6">Editar vehículo</h1>
+      <h1 className="text-xl font-bold text-white mb-4 sm:text-2xl sm:mb-6">Editar vehículo</h1>
       <VehicleForm vehicle={vehicle} />
     </div>
   );

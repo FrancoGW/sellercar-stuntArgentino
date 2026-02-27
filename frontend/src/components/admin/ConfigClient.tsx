@@ -50,19 +50,19 @@ export function ConfigClient() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Configuración</h1>
-        <p className="text-muted-foreground">Ajustes del sitio y del panel</p>
+        <h1 className="text-xl font-bold tracking-tight sm:text-2xl">Configuración</h1>
+        <p className="text-sm text-muted-foreground sm:text-base">Ajustes del sitio y del panel</p>
       </div>
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <Tabs defaultValue="hero" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-6">
-            <TabsTrigger value="hero">Hero / Slider</TabsTrigger>
-            <TabsTrigger value="general">General</TabsTrigger>
-            <TabsTrigger value="marcas">Marcas</TabsTrigger>
-            <TabsTrigger value="usuarios">Usuarios</TabsTrigger>
-            <TabsTrigger value="email">Email</TabsTrigger>
-            <TabsTrigger value="seo">SEO</TabsTrigger>
+          <TabsList className="flex w-full overflow-x-auto rounded-lg bg-muted p-1 gap-1 sm:grid sm:grid-cols-6 sm:overflow-visible">
+            <TabsTrigger value="hero" className="shrink-0 whitespace-nowrap">Hero / Slider</TabsTrigger>
+            <TabsTrigger value="general" className="shrink-0 whitespace-nowrap">General</TabsTrigger>
+            <TabsTrigger value="marcas" className="shrink-0 whitespace-nowrap">Marcas</TabsTrigger>
+            <TabsTrigger value="usuarios" className="shrink-0 whitespace-nowrap">Usuarios</TabsTrigger>
+            <TabsTrigger value="email" className="shrink-0 whitespace-nowrap">Email</TabsTrigger>
+            <TabsTrigger value="seo" className="shrink-0 whitespace-nowrap">SEO</TabsTrigger>
           </TabsList>
 
           <TabsContent value="hero" className="space-y-4">

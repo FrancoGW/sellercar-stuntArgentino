@@ -80,6 +80,20 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   );
 }
 
+const MD_BREAKPOINT = 768;
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = React.useState(false);
+  React.useEffect(() => {
+    const m = window.matchMedia(`(max-width: ${MD_BREAKPOINT - 1}px)`);
+    const set = () => setIsMobile(m.matches);
+    set();
+    m.addEventListener('change', set);
+    return () => m.removeEventListener('change', set);
+  }, []);
+  return isMobile;
+}
+
 function AdminShellWithSidebar({
   children,
   user,
@@ -92,23 +106,45 @@ function AdminShellWithSidebar({
   onLogout: () => void;
 }) {
   const [collapsed, setCollapsed] = React.useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const isMobile = useIsMobile();
   const breadcrumbs = getBreadcrumbs(pathname);
+
+  React.useEffect(() => {
+    if (isMobile) setMobileMenuOpen(false);
+  }, [pathname, isMobile]);
+
+  const sidebarWidth = collapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_EXPANDED;
+  const mainMarginLeft = isMobile ? 0 : sidebarWidth;
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-black via-zinc-950 to-gray-900 text-white">
+      {/* Backdrop móvil */}
+      {isMobile && mobileMenuOpen && (
+        <button
+          type="button"
+          aria-label="Cerrar menú"
+          className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm md:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Sidebar – Stunt Argentino */}
       <motion.aside
         initial={false}
-        animate={{ width: collapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_EXPANDED }}
+        animate={{
+          width: isMobile ? SIDEBAR_WIDTH_EXPANDED : sidebarWidth,
+          x: isMobile ? (mobileMenuOpen ? 0 : -SIDEBAR_WIDTH_EXPANDED) : 0,
+        }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className="fixed left-0 top-0 z-40 flex h-screen flex-col border-r border-[#B59F02]/30 bg-black/60 backdrop-blur"
       >
-        <div className="relative flex h-14 items-center justify-center border-b border-[#B59F02]/20 px-2">
+        <div className="relative flex h-14 min-h-14 items-center justify-center border-b border-[#B59F02]/20 px-2">
           <Button
             variant="ghost"
             size="icon"
             className="absolute left-1 text-gray-300 hover:bg-[#B59F02]/10 hover:text-[#F4E17F]"
-            onClick={() => setCollapsed((c) => !c)}
+            onClick={() => (isMobile ? setMobileMenuOpen((o) => !o) : setCollapsed((c) => !c))}
           >
             <Menu className="h-5 w-5" />
           </Button>
@@ -138,7 +174,7 @@ function AdminShellWithSidebar({
                 >
                   <item.icon className="h-5 w-5 shrink-0" />
                   <AnimatePresence mode="wait">
-                    {!collapsed && (
+                    {(isMobile || !collapsed) && (
                       <motion.span
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -155,7 +191,7 @@ function AdminShellWithSidebar({
           })}
         </nav>
         <div className="border-t border-[#B59F02]/20 p-2">
-          <div className={cn('flex items-center gap-3 rounded-lg px-3 py-2', collapsed && 'justify-center')}>
+          <div className={cn('flex items-center gap-3 rounded-lg px-3 py-2', !isMobile && collapsed && 'justify-center')}>
             <Avatar className="h-9 w-9 shrink-0 border border-[#B59F02]/40">
               {user.image ? (
                 <AvatarImage src={user.image} />
@@ -164,7 +200,7 @@ function AdminShellWithSidebar({
                 {user.image ? (user.name ?? user.email ?? 'A').slice(0, 1).toUpperCase() : <User className="h-5 w-5" />}
               </AvatarFallback>
             </Avatar>
-            {!collapsed && (
+            {(isMobile || !collapsed) && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -188,37 +224,50 @@ function AdminShellWithSidebar({
       </motion.aside>
 
       <div
-        className="flex flex-1 flex-col transition-[margin]"
-        style={{ marginLeft: collapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_EXPANDED }}
+        className="flex flex-1 flex-col transition-[margin] min-w-0"
+        style={{ marginLeft: mainMarginLeft }}
       >
-        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-[#B59F02]/30 bg-black/40 backdrop-blur px-6">
-          <nav className="flex items-center gap-2 text-sm text-gray-400">
-            {breadcrumbs.map((crumb, i) => (
-              <span key={crumb.href} className="flex items-center gap-2">
-                {i > 0 && <ChevronLeft className="h-4 w-4 rotate-180" />}
-                <Link
-                  to={crumb.href}
-                  className={
-                    i === breadcrumbs.length - 1
-                      ? 'font-semibold text-[#B59F02]'
-                      : 'hover:text-[#F4E17F]'
-                  }
-                >
-                  {crumb.label}
-                </Link>
-              </span>
-            ))}
-          </nav>
-          <div className="flex items-center gap-2">
+        <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-2 border-b border-[#B59F02]/30 bg-black/40 backdrop-blur px-4 sm:px-6">
+          <div className="flex items-center gap-2 min-w-0 flex-1">
+            {isMobile && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="shrink-0 text-gray-300 hover:bg-[#B59F02]/10 hover:text-[#F4E17F]"
+                onClick={() => setMobileMenuOpen(true)}
+                aria-label="Abrir menú"
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+            )}
+            <nav className="flex items-center gap-2 text-sm text-gray-400 overflow-x-auto min-w-0 scrollbar-thin">
+              {breadcrumbs.map((crumb, i) => (
+                <span key={crumb.href} className="flex items-center gap-2 shrink-0">
+                  {i > 0 && <ChevronLeft className="h-4 w-4 rotate-180 shrink-0" />}
+                  <Link
+                    to={crumb.href}
+                    className={
+                      i === breadcrumbs.length - 1
+                        ? 'font-semibold text-[#B59F02]'
+                        : 'hover:text-[#F4E17F]'
+                    }
+                  >
+                    {crumb.label}
+                  </Link>
+                </span>
+              ))}
+            </nav>
+          </div>
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             <Button
               variant="outline"
               size="sm"
               asChild
-              className="border-[#B59F02]/40 bg-[#B59F02]/10 text-[#F4E17F] hover:bg-[#B59F02]/20"
+              className="border-[#B59F02]/40 bg-[#B59F02]/10 text-[#F4E17F] hover:bg-[#B59F02]/20 text-xs sm:text-sm"
             >
               <a href="/" target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="mr-2 h-4 w-4" />
-                Ver sitio
+                <ExternalLink className="mr-1.5 h-4 w-4 sm:mr-2" />
+                <span className="hidden sm:inline">Ver sitio</span>
               </a>
             </Button>
             <DropdownMenu>
@@ -265,7 +314,7 @@ function AdminShellWithSidebar({
             </DropdownMenu>
           </div>
         </header>
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-4 sm:p-6 overflow-x-hidden min-w-0">
           <motion.div
             key={pathname}
             initial={{ opacity: 0, y: 8 }}

@@ -66,8 +66,8 @@ export function DashboardClient({ stats }: DashboardClientProps) {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground">Resumen del panel de administración</p>
+        <h1 className="text-xl font-bold tracking-tight sm:text-2xl">Dashboard</h1>
+        <p className="text-sm text-muted-foreground sm:text-base">Resumen del panel de administración</p>
       </div>
 
       {/* KPIs */}
@@ -110,12 +110,12 @@ export function DashboardClient({ stats }: DashboardClientProps) {
           transition={{ delay: 0.2 }}
         >
           <Card className="overflow-hidden border shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="flex items-center gap-2 text-base">
-                <AlertTriangle className="h-5 w-5 text-status-warning" />
+            <CardHeader className="flex flex-col gap-2 pb-2 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+              <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+                <AlertTriangle className="h-4 w-4 shrink-0 text-status-warning sm:h-5 sm:w-5" />
                 Vehículos próximos a vencer
               </CardTitle>
-              <Button variant="outline" size="sm" asChild>
+              <Button variant="outline" size="sm" asChild className="w-fit">
                 <Link to="/panel/vehiculos">Ver todos</Link>
               </Button>
             </CardHeader>
@@ -192,7 +192,7 @@ export function DashboardClient({ stats }: DashboardClientProps) {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-[280px]">
+              <div className="h-[220px] sm:h-[280px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={viewsByDay}>
                     <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
@@ -227,7 +227,7 @@ export function DashboardClient({ stats }: DashboardClientProps) {
               <CardTitle className="text-base">Estado de publicaciones</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-[280px]">
+              <div className="h-[220px] sm:h-[280px]">
                 {typeData.length > 0 ? (
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -268,9 +268,9 @@ export function DashboardClient({ stats }: DashboardClientProps) {
         transition={{ delay: 0.25 }}
       >
         <Card className="shadow-sm">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-base">Contactos recibidos</CardTitle>
-            <Button variant="outline" size="sm" asChild>
+          <CardHeader className="flex flex-col gap-2 pb-2 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+            <CardTitle className="text-sm sm:text-base">Contactos recibidos</CardTitle>
+            <Button variant="outline" size="sm" asChild className="w-fit">
               <Link to="/panel/contactos">Ver contactos</Link>
             </Button>
           </CardHeader>

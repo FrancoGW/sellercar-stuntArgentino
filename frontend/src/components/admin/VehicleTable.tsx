@@ -266,8 +266,8 @@ export function VehicleTable({
 
   return (
     <>
-      <div className="rounded-md border bg-card overflow-hidden">
-        <Table>
+      <div className="rounded-md border bg-card overflow-hidden overflow-x-auto">
+        <Table className="min-w-[800px]">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -291,9 +291,9 @@ export function VehicleTable({
         </Table>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-4 py-4">
+      <div className="flex flex-col gap-3 py-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground">Filas por página</span>
+          <span className="text-sm text-muted-foreground whitespace-nowrap">Filas por página</span>
           <select
             className="h-9 rounded-md border bg-background px-2 text-sm"
             value={pageSize}
@@ -304,7 +304,7 @@ export function VehicleTable({
             ))}
           </select>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <Button
             variant="outline"
             size="sm"
@@ -313,7 +313,7 @@ export function VehicleTable({
           >
             Anterior
           </Button>
-          <span className="text-sm text-muted-foreground px-2">
+          <span className="text-sm text-muted-foreground px-2 whitespace-nowrap">
             Página {page} de {pageCount || 1}
           </span>
           <Button

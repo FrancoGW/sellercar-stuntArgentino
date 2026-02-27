@@ -42,8 +42,8 @@ export function StatsClient({
     <div className="space-y-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Estadísticas</h1>
-          <p className="text-muted-foreground">Rendimiento y análisis</p>
+          <h1 className="text-xl font-bold tracking-tight sm:text-2xl">Estadísticas</h1>
+          <p className="text-sm text-muted-foreground sm:text-base">Rendimiento y análisis</p>
         </div>
         <div className="flex gap-2">
           {(['7', '30', '90'] as const).map((r) => (

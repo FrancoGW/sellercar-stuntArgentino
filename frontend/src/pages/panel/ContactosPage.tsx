@@ -118,7 +118,7 @@ export default function ContactosPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-white">Contactos</h1>
+      <h1 className="text-xl font-bold text-white sm:text-2xl">Contactos</h1>
       <Card className="border-[#B59F02]/30 bg-black/40">
         <CardHeader>
           <CardTitle className="text-[#F4E17F]">Mensajes recibidos</CardTitle>
@@ -175,7 +175,7 @@ export default function ContactosPage() {
                         value={c.status ?? 'pendiente'}
                         onValueChange={(v) => updateStatus(c._id, v)}
                       >
-                        <SelectTrigger className="w-[160px] h-8 text-xs border-[#B59F02]/30 bg-black/40 text-gray-200">
+                        <SelectTrigger className="w-full min-w-[140px] max-w-[160px] h-8 text-xs border-[#B59F02]/30 bg-black/40 text-gray-200">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
