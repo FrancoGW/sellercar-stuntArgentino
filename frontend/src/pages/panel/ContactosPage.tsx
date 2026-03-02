@@ -20,9 +20,94 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Mail, MessageSquare, Phone, User, Send, MessageCircle } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Mail, MessageSquare, Phone, User, Send, MessageCircle, ChevronDown, Zap } from 'lucide-react';
 
 const WHATSAPP_CONTACT_MSG = 'Hola, te escribo desde StuntArgentino en relación a tu consulta.';
+
+const QUICK_REPLIES = {
+  precios: {
+    label: 'Precios',
+    subject: 'Planes y precios - compraventaar.com',
+    body: `¡Hola ¿Cómo estás?  Te paso la info sobre nuestros planes:
+
+📦 PLANES MENSUALES
+
+🔹 CLÁSICO - $25.000/mes
+• Publicación en Instagram (feed)
+• Publicación en la web
+• Aparece en el catálogo general
+
+🔸 PREMIUM - $30.000/mes
+• Todo lo del plan Clásico
+• Publicación en historia
+• Destacado en la web
+• 1 republicación a los 30 días en Instagram
+
+⭐ VIP - $35.000/mes
+• Todo lo del plan Premium
+• Publicación en historia
+• Destacado en la web
+• 2 republicaciones cada 30 días en Instagram
+
+💎 DELUXE - $45.000/mes
+• Todo lo del plan VIP
+• Publicación en historia
+• Destacado en la web todo el mes (30 días)
+• Republicación mensual por 1 año en Instagram
+• Máxima visibilidad en búsquedas y filtros
+
+
+⚡ SERVICIOS ADICIONALES (Pago único)
+
+📌 DESTACADO 24HS - $9.744
+• Destacado en la posición #1 de la home por 24 horas (dependiendo de disponibilidad)
+• Máxima exposición por un día
+
+🚀 PRIORITARIO 7 DÍAS - $19.494
+• Aparece primero en todas las búsquedas por 7 días
+• Notificación a usuarios registrados
+
+✅ Emitimos factura A.`,
+  },
+  cargar: {
+    label: 'Cargar',
+    subject: 'Cómo cargar tu vehículo - compraventaar.com',
+    body: `Muchas gracias por elegirnos, ya estamos listos para cargar tu vehículo.
+Envianos los siguientes datos a 📧 info@compraventaar.com
+
+🚗 Datos del vehículo:
+• Marca y modelo
+• Año
+• Kilometraje
+• Precio
+• Detalles del vehículo
+• Fotos
+
+📋 Contacto:
+• Número de teléfono (obligatorio)
+• Mail (obligatorio)
+
+
+Una vez realizado el pago, enviá el comprobante al mismo mail junto con los datos del vehículo.
+
+💳 Datos para el pago:
+• Alias: RECATECH
+• CVU: 0000053600000026720261
+• Titular: Carlos Antonio Hecker
+• CUIL: 23-36765086-9
+
+✅ Emitimos factura A.
+¡Ante cualquier consulta, estamos a disposición! 😊`,
+  },
+} as const;
 
 interface ContactItem {
   _id: string;
@@ -194,22 +279,49 @@ export default function ContactosPage() {
                         Responder por mail
                       </Button>
                       {hasPhone && (
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          className="border-[#25D366]/50 text-[#25D366] hover:bg-[#25D366]/20"
-                          asChild
-                        >
-                          <a
-                            href={whatsappUrl(c.phone!, WHATSAPP_CONTACT_MSG)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <MessageCircle className="h-3.5 w-3 mr-1.5" />
-                            WhatsApp
-                          </a>
-                        </Button>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              className="border-[#25D366]/50 text-[#25D366] hover:bg-[#25D366]/20"
+                            >
+                              <MessageCircle className="h-3.5 w-3 mr-1.5" />
+                              WhatsApp
+                              <ChevronDown className="h-3 w-3 ml-1.5 opacity-70" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="start" className="w-48">
+                            <DropdownMenuLabel className="text-xs text-muted-foreground flex items-center gap-1">
+                              <Zap className="h-3 w-3 text-[#B59F02]" />
+                              Respuestas rápidas
+                            </DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem asChild>
+                              <a
+                                href={whatsappUrl(c.phone!, WHATSAPP_CONTACT_MSG)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="cursor-pointer"
+                              >
+                                Mensaje estándar
+                              </a>
+                            </DropdownMenuItem>
+                            {(Object.keys(QUICK_REPLIES) as Array<keyof typeof QUICK_REPLIES>).map((key) => (
+                              <DropdownMenuItem key={key} asChild>
+                                <a
+                                  href={whatsappUrl(c.phone!, QUICK_REPLIES[key].body)}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="cursor-pointer"
+                                >
+                                  {QUICK_REPLIES[key].label}
+                                </a>
+                              </DropdownMenuItem>
+                            ))}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       )}
                     </div>
                   </li>
@@ -235,6 +347,29 @@ export default function ContactosPage() {
                   className="bg-black/50 border-[#B59F02]/30 text-gray-300"
                 />
               </div>
+              <div className="space-y-1.5">
+                <Label className="text-gray-300 flex items-center gap-1.5">
+                  <Zap className="h-3.5 w-3.5 text-[#B59F02]" />
+                  Respuestas rápidas
+                </Label>
+                <div className="flex flex-wrap gap-2">
+                  {(Object.keys(QUICK_REPLIES) as Array<keyof typeof QUICK_REPLIES>).map((key) => (
+                    <Button
+                      key={key}
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      className="h-7 text-xs border-[#B59F02]/40 text-[#F4E17F] hover:bg-[#B59F02]/20"
+                      onClick={() => {
+                        setReplySubject(QUICK_REPLIES[key].subject);
+                        setReplyBody(QUICK_REPLIES[key].body);
+                      }}
+                    >
+                      {QUICK_REPLIES[key].label}
+                    </Button>
+                  ))}
+                </div>
+              </div>
               <div className="space-y-2">
                 <Label className="text-gray-300">Asunto</Label>
                 <Input
@@ -250,7 +385,7 @@ export default function ContactosPage() {
                   value={replyBody}
                   onChange={(e) => setReplyBody(e.target.value)}
                   placeholder="Escribí tu respuesta..."
-                  rows={5}
+                  rows={7}
                   className="flex w-full rounded-lg border border-[#B59F02]/30 bg-black/50 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#B59F02]/40"
                 />
               </div>
